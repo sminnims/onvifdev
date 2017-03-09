@@ -1,0 +1,9 @@
+c:\users\smkim5.ckbsdomain\documents\visual studio 2015\Projects\ONVIFTester\ONVIFTester\bin\Debug\ONVIFTester.exe.config
+C:\Users\smkim5.CKBSDOMAIN\documents\visual studio 2015\Projects\ONVIFTester\ONVIFTester\bin\Debug\ONVIFTester.exe
+C:\Users\smkim5.CKBSDOMAIN\documents\visual studio 2015\Projects\ONVIFTester\ONVIFTester\bin\Debug\ONVIFTester.pdb
+C:\Users\smkim5.CKBSDOMAIN\documents\visual studio 2015\Projects\ONVIFTester\ONVIFTester\obj\Debug\ONVIFTester.csprojResolveAssemblyReference.cache
+C:\Users\smkim5.CKBSDOMAIN\documents\visual studio 2015\Projects\ONVIFTester\ONVIFTester\obj\Debug\ONVIFTester.Properties.Resources.resources
+C:\Users\smkim5.CKBSDOMAIN\documents\visual studio 2015\Projects\ONVIFTester\ONVIFTester\obj\Debug\ONVIFTester.csproj.GenerateResource.Cache
+C:\Users\smkim5.CKBSDOMAIN\documents\visual studio 2015\Projects\ONVIFTester\ONVIFTester\obj\Debug\ONVIFTester.exe
+C:\Users\smkim5.CKBSDOMAIN\documents\visual studio 2015\Projects\ONVIFTester\ONVIFTester\obj\Debug\ONVIFTester.pdb
+C:\Users\smkim5.CKBSDOMAIN\documents\visual studio 2015\Projects\ONVIFTester\ONVIFTester\obj\Debug\ONVIFTester.Form1.resources
