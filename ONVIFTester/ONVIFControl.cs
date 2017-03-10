@@ -233,9 +233,8 @@ namespace ONVIFTester
                 onvifdev.schemaPrefix = xnamespace.LookupPrefix(ONVIFNamespace.schema);
                 onvifdev.devicePrefix = xnamespace.LookupPrefix(ONVIFNamespace.device);
 
-                DataTable dbTable = new DataTable();
-
-
+                /* get function xaddr in document */
+                onvifdev = XMLControl.findAllXAddr(xdoc, onvifdev);
             }
             catch(XmlException xe)
             {

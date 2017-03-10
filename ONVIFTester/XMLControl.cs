@@ -35,6 +35,55 @@ namespace ONVIFTester
             }
             return result;
         }
+
+        public static ONVIFDevice findAllXAddr(XmlDocument doc, ONVIFDevice _onvifdev)
+        {
+            ONVIFDevice onvifdev = _onvifdev;
+            XmlNodeList xnode_list = doc.GetElementsByTagName(onvifdev.devicePrefix + ":Capabilities");
+
+            XmlNode xnode = xnode_list[0]; /* capabilities elements */           
+
+            foreach(XmlElement xelement in xnode)
+            {
+                String[] attribute = xelement.Name.Split(':');
+                String tag = attribute[attribute.Length - 1];
+
+                switch(tag)
+                {
+                    case "Analytics":
+                        onvifdev.analysticxaddr = xelement.FirstChild.FirstChild.Value;
+                        break;
+                    case "Device":
+                        onvifdev.devicexaddr = xelement.FirstChild.FirstChild.Value;
+                        break;
+                    case "Events":
+                        onvifdev.eventxaddr = xelement.FirstChild.FirstChild.Value;
+                        break;
+                    case "Imaging":
+                        onvifdev.imagexaddr = xelement.FirstChild.FirstChild.Value;
+                        break;
+                    case "Media":
+                        onvifdev.mediaxaddr = xelement.FirstChild.FirstChild.Value;
+                        break;                    
+                    case "DeviceIO":
+                        onvifdev.devioxaddr = xelement.FirstChild.FirstChild.Value;
+                        break;
+                    case "Recording":
+                        onvifdev.recordxaddr = xelement.FirstChild.FirstChild.Value;
+                        break;
+                    case "Search":
+                        onvifdev.searchxaddr = xelement.FirstChild.FirstChild.Value;
+                        break;
+                    case "Replay":
+                        onvifdev.replayxaddr = xelement.FirstChild.FirstChild.Value;
+                        break;
+                    default:
+                        break;
+                }
+                
+            }
+            return onvifdev;
+        }
         #endregion
     }
 }
