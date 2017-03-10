@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -7,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
+using System.Xml.XPath;
 
 namespace ONVIFTester
 {
@@ -25,8 +27,14 @@ namespace ONVIFTester
         public DateTime timeoffset { get; set; }
         public String model { get; set; }
         public String serial { get; set; }
-        public String prefixSchema { get; set; }
+        /* namespace prefix */
+        public String schemaPrefix { get; set; }
+        public String devicePrefix { get; set; }
+
+        /* element */
         public XmlDocument capabilities { get; set; }
+
+        /* command xaddr */
         public String analysticxaddr { get; set; }
         public String devicexaddr { get; set; }
         public String eventxaddr { get; set; }
@@ -38,15 +46,20 @@ namespace ONVIFTester
         public String replayxaddr { get; set; }
     }
 
+    class ONVIFNamespace
+    {
+        public static String schema = "http://www.onvif.org/ver10/schema";
+        public static String device = "http://www.onvif.org/ver10/device/wsdl";        
+    }
     class ONVIFControl
     {
         private ONVIFDevice onvifdev;
         private wsdUsernameToken _wsdUsernameToken;
         private String deviceURL;
-        private String onvifPrefixSchema;
+        private String schemaPrefix;
         private Form1 parentForm;
 
-        private HttpHandler _http;
+        private HttpControl _http;
 
         private DateTime startDate;
         private DateTime baseDateTime;
@@ -54,7 +67,7 @@ namespace ONVIFTester
         {
             onvifdev = new ONVIFDevice();
             _wsdUsernameToken = new wsdUsernameToken();
-            _http = new HttpHandler();
+            _http = new HttpControl();
             parentForm = _form;
         }
         /* wsdUsernameToken I/F */
@@ -118,10 +131,13 @@ namespace ONVIFTester
             /* parser soap response */
             XmlDocument xdoc = new XmlDocument();
             xdoc.LoadXml(paramStr.ToString());
+
+            XmlNamespaceManager xnamespace = XMLControl.getAllNamespaces(xdoc);
+            onvifdev.schemaPrefix = xnamespace.LookupPrefix(ONVIFNamespace.schema);
+            /* test */
+#if false
             XmlElement xelements = xdoc.DocumentElement;
             XmlAttributeCollection xAttribute = xdoc.DocumentElement.Attributes;
-                       
-            onvifPrefixSchema = "tds2"; /* set default to canon prefix */
             /* need to find prefix of namespace:/ver10/schema */
             foreach (XmlAttribute attr in xAttribute)
             {
@@ -131,33 +147,26 @@ namespace ONVIFTester
                 if (result == true)
                 {
                     String[] split_word = attr.Name.Split(':');
-                    onvifPrefixSchema = split_word[(split_word.Length) - 1];
+                    schemaPrefix = split_word[(split_word.Length) - 1];
                     break;
                 }
             }
-            onvifdev.prefixSchema = onvifPrefixSchema;
-#if false
-            /* it doesn't work.... why??? */
-            XmlNamespaceManager xmlns = new XmlNamespaceManager(xdoc.NameTable);
-            
-            String tt = xmlns.LookupPrefix("http://www.onvif.org/ver10/schema");
-            String schemaNs = xmlns.LookupNamespace("xmlns");            
 #endif
             try
             {
                 /* Onvif Application Programmers Guide - Created – The UtcTime when the request is made. */
-                XmlNodeList xnode_list = xdoc.GetElementsByTagName(onvifPrefixSchema + ":UTCDateTime");
+                XmlNodeList xnode_list = xdoc.GetElementsByTagName(onvifdev.schemaPrefix + ":UTCDateTime");
 
                 XmlNode time_node = xnode_list[0].FirstChild;
                 XmlNode date_node = xnode_list[0].LastChild;
 
-                String _hour = time_node[onvifPrefixSchema + ":Hour"].InnerText;
-                String _min = time_node[onvifPrefixSchema + ":Minute"].InnerText;
-                String _sec = time_node[onvifPrefixSchema + ":Second"].InnerText;
+                String _hour = time_node[onvifdev.schemaPrefix + ":Hour"].InnerText;
+                String _min = time_node[onvifdev.schemaPrefix + ":Minute"].InnerText;
+                String _sec = time_node[onvifdev.schemaPrefix + ":Second"].InnerText;
 
-                String _year = date_node[onvifPrefixSchema + ":Year"].InnerText;
-                String _month = date_node[onvifPrefixSchema + ":Month"].InnerText;
-                String _day = date_node[onvifPrefixSchema + ":Day"].InnerText;
+                String _year = date_node[onvifdev.schemaPrefix + ":Year"].InnerText;
+                String _month = date_node[onvifdev.schemaPrefix + ":Month"].InnerText;
+                String _day = date_node[onvifdev.schemaPrefix + ":Day"].InnerText;
 
                 DateTime currentTime = new DateTime(Int32.Parse(_year), Int32.Parse(_month), Int32.Parse(_day)
                                                , Int32.Parse(_hour), Int32.Parse(_min), Int32.Parse(_sec));
@@ -216,13 +225,15 @@ namespace ONVIFTester
                 String paramStr = _http.Read();
                 parentForm.settbLogBox("\r\nFunction OK : " + System.Reflection.MethodBase.GetCurrentMethod().Name + "\n");
 
-                /* xml parsing */
-                XDocument xdoc = XDocument.Parse(paramStr);
+                /* parser soap response */
+                XmlDocument xdoc = new XmlDocument();
+                xdoc.LoadXml(paramStr.ToString());
 
-                var elements = xdoc.Descendants("Device").Elements("XAddr");
+                XmlNamespaceManager xnamespace = XMLControl.getAllNamespaces(xdoc);
+                onvifdev.schemaPrefix = xnamespace.LookupPrefix(ONVIFNamespace.schema);
+                onvifdev.devicePrefix = xnamespace.LookupPrefix(ONVIFNamespace.device);
 
-                var value = from element in elements
-                                       select element.Value;
+                DataTable dbTable = new DataTable();
 
 
             }
@@ -235,7 +246,7 @@ namespace ONVIFTester
                 parentForm.settbLogBox("\r\nWeb Exception : " + we.Message + System.Reflection.MethodBase.GetCurrentMethod().Name);
             }
         }
-        #endregion
+#endregion
         /* ONVIF Control API */
     }
 }

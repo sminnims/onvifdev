@@ -8,7 +8,7 @@ using System.IO;
 
 namespace ONVIFTester
 {
-    class HttpHandler
+    class HttpControl
     {
         private String deviceUrl;
         private HttpWebRequest httpReq;
