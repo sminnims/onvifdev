@@ -1,0 +1,387 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope
+  xmlns:SOAP-ENV="http://www.w3.org/2003/05/soap-envelope"
+  xmlns:SOAP-ENC="http://www.w3.org/2003/05/soap-encoding"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:chan="http://schemas.microsoft.com/ws/2005/02/duplex"
+  xmlns:wsa5="http://www.w3.org/2005/08/addressing"
+  xmlns:c14n="http://www.w3.org/2001/10/xml-exc-c14n#"
+  xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+  xmlns:xenc="http://www.w3.org/2001/04/xmlenc#"
+  xmlns:wsc="http://schemas.xmlsoap.org/ws/2005/02/sc"
+  xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+  xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
+  xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
+  xmlns:tt="http://www.onvif.org/ver10/schema"
+  xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2"
+  xmlns:xop="http://www.w3.org/2004/08/xop/include"
+  xmlns:wsrf-bf="http://docs.oasis-open.org/wsrf/bf-2"
+  xmlns:wstop="http://docs.oasis-open.org/wsn/t-1"
+  xmlns:CC="http://www.canon.com/ns/networkcamera/onvif/va/schema"
+  xmlns:CT="http://www.canon.com/ns/networkcamera/onvif/va/topic/schema"
+  xmlns:tan1="http://www.onvif.org/ver20/analytics/wsdl/RuleEngineBinding"
+  xmlns:tan2="http://www.onvif.org/ver20/analytics/wsdl/AnalyticsEngineBinding"
+  xmlns:tan="http://www.onvif.org/ver20/analytics/wsdl"
+  xmlns:trt="http://www.onvif.org/ver10/media/wsdl"
+  xmlns:ter="http://www.onvif.org/ver10/error"
+  xmlns:tns1="http://www.onvif.org/ver10/topics">
+  <SOAP-ENV:Header></SOAP-ENV:Header>
+  <SOAP-ENV:Body>
+    <trt:GetProfilesResponse>
+      <trt:Profiles fixed="true" token="profile0">
+        <tt:Name>profile0</tt:Name>
+        <tt:VideoSourceConfiguration token="0">
+          <tt:Name>video</tt:Name>
+          <tt:UseCount>5</tt:UseCount>
+          <tt:SourceToken>0</tt:SourceToken>
+          <tt:Bounds height="1080" width="1920" y="0" x="0"></tt:Bounds>
+          <tt:Extension>
+            <tt:Rotate>
+              <tt:Mode>AUTO</tt:Mode>
+            </tt:Rotate>
+          </tt:Extension>
+        </tt:VideoSourceConfiguration>
+        <tt:AudioSourceConfiguration token="0">
+          <tt:Name>audio</tt:Name>
+          <tt:UseCount>1</tt:UseCount>
+          <tt:SourceToken>0</tt:SourceToken>
+        </tt:AudioSourceConfiguration>
+        <tt:VideoEncoderConfiguration token="1">
+          <tt:Name>jpeg1</tt:Name>
+          <tt:UseCount>1</tt:UseCount>
+          <tt:Encoding>JPEG</tt:Encoding>
+          <tt:Resolution>
+            <tt:Width>1920</tt:Width>
+            <tt:Height>1080</tt:Height>
+          </tt:Resolution>
+          <tt:Quality>6.000000</tt:Quality>
+          <tt:RateControl>
+            <tt:FrameRateLimit>8</tt:FrameRateLimit>
+            <tt:EncodingInterval>1</tt:EncodingInterval>
+            <tt:BitrateLimit>384</tt:BitrateLimit>
+          </tt:RateControl>
+          <tt:Multicast>
+            <tt:Address>
+              <tt:Type>IPv4</tt:Type>
+              <tt:IPv4Address>0.0.0.0</tt:IPv4Address>
+            </tt:Address>
+            <tt:Port>0</tt:Port>
+            <tt:TTL>1</tt:TTL>
+            <tt:AutoStart>false</tt:AutoStart>
+          </tt:Multicast>
+          <tt:SessionTimeout>PT1M0S</tt:SessionTimeout>
+        </tt:VideoEncoderConfiguration>
+        <tt:AudioEncoderConfiguration token="0">
+          <tt:Name>g711</tt:Name>
+          <tt:UseCount>1</tt:UseCount>
+          <tt:Encoding>G711</tt:Encoding>
+          <tt:Bitrate>64</tt:Bitrate>
+          <tt:SampleRate>8</tt:SampleRate>
+          <tt:Multicast>
+            <tt:Address>
+              <tt:Type>IPv4</tt:Type>
+              <tt:IPv4Address>0.0.0.0</tt:IPv4Address>
+            </tt:Address>
+            <tt:Port>0</tt:Port>
+            <tt:TTL>1</tt:TTL>
+            <tt:AutoStart>false</tt:AutoStart>
+          </tt:Multicast>
+          <tt:SessionTimeout>PT1M0S</tt:SessionTimeout>
+        </tt:AudioEncoderConfiguration>
+        <tt:VideoAnalyticsConfiguration token="0">
+          <tt:Name>va</tt:Name>
+          <tt:UseCount>1</tt:UseCount>
+          <tt:AnalyticsEngineConfiguration>
+            <tt:AnalyticsModule Name="def-analytics-cfg" Type="tt:ObjectTracker">
+              <tt:Parameters></tt:Parameters>
+            </tt:AnalyticsModule>
+          </tt:AnalyticsEngineConfiguration>
+          <tt:RuleEngineConfiguration>
+            <tt:Rule Name="1" Type="CT:MovingObjectDetector">
+              <tt:Parameters>
+                <tt:SimpleItem Value="10.00" Name="ObjectSize"></tt:SimpleItem>
+                <tt:ElementItem Name="Field">
+                  <CC:Polygon xmlns:CC="http://www.canon.com/ns/networkcamera/onvif/va/schema" xmlns:tt="http://www.onvif.org/ver10/schema">
+                    <tt:Point y="6.000000" x="22.000000"></tt:Point>
+                    <tt:Point y="11.000000" x="22.000000"></tt:Point>
+                    <tt:Point y="12.000000" x="24.000000"></tt:Point>
+                    <tt:Point y="5.000000" x="24.000000"></tt:Point>
+                  </CC:Polygon>
+                </tt:ElementItem>
+                <tt:ElementItem Name="PresetToken">
+                  <CC:Token xmlns:CC="http://www.canon.com/ns/networkcamera/onvif/va/schema" xmlns:tt="http://www.onvif.org/ver10/schema"></CC:Token>
+                </tt:ElementItem>
+              </tt:Parameters>
+            </tt:Rule>
+            <tt:Rule Name="2" Type="CT:AbandonedObjectDetector">
+              <tt:Parameters>
+                <tt:SimpleItem Value="10.53" Name="ObjectSize"></tt:SimpleItem>
+                <tt:SimpleItem Value="PT10S" Name="TimeToJudgment"></tt:SimpleItem>
+                <tt:ElementItem Name="Field">
+                  <CC:Polygon xmlns:CC="http://www.canon.com/ns/networkcamera/onvif/va/schema" xmlns:tt="http://www.onvif.org/ver10/schema">
+                    <tt:Point y="18.000000" x="39.000000"></tt:Point>
+                    <tt:Point y="34.000000" x="60.000000"></tt:Point>
+                    <tt:Point y="34.000000" x="39.000000"></tt:Point>
+                    <tt:Point y="19.000000" x="33.000000"></tt:Point>
+                  </CC:Polygon>
+                </tt:ElementItem>
+                <tt:ElementItem Name="PresetToken">
+                  <CC:Token xmlns:CC="http://www.canon.com/ns/networkcamera/onvif/va/schema" xmlns:tt="http://www.onvif.org/ver10/schema"></CC:Token>
+                </tt:ElementItem>
+              </tt:Parameters>
+            </tt:Rule>
+            <tt:Rule Name="3" Type="CT:RemovedObjectDetector">
+              <tt:Parameters>
+                <tt:SimpleItem Value="PT5S" Name="TimeToJudgment"></tt:SimpleItem>
+                <tt:ElementItem Name="Field">
+                  <CC:Polygon xmlns:CC="http://www.canon.com/ns/networkcamera/onvif/va/schema" xmlns:tt="http://www.onvif.org/ver10/schema">
+                    <tt:Point y="18.000000" x="32.000000"></tt:Point>
+                    <tt:Point y="18.000000" x="60.000000"></tt:Point>
+                    <tt:Point y="33.000000" x="60.000000"></tt:Point>
+                    <tt:Point y="33.000000" x="32.000000"></tt:Point>
+                  </CC:Polygon>
+                </tt:ElementItem>
+                <tt:ElementItem Name="PresetToken">
+                  <CC:Token xmlns:CC="http://www.canon.com/ns/networkcamera/onvif/va/schema" xmlns:tt="http://www.onvif.org/ver10/schema"></CC:Token>
+                </tt:ElementItem>
+              </tt:Parameters>
+            </tt:Rule>
+            <tt:Rule Name="4" Type="CT:CameraTamperingDetector">
+              <tt:Parameters>
+                <tt:SimpleItem Value="85.00" Name="CoveredSize%"></tt:SimpleItem>
+                <tt:ElementItem Name="Field">
+                  <CC:Polygon xmlns:CC="http://www.canon.com/ns/networkcamera/onvif/va/schema" xmlns:tt="http://www.onvif.org/ver10/schema">
+                    <tt:Point y="0.000000" x="0.000000"></tt:Point>
+                    <tt:Point y="0.000000" x="60.000000"></tt:Point>
+                    <tt:Point y="34.000000" x="60.000000"></tt:Point>
+                    <tt:Point y="34.000000" x="0.000000"></tt:Point>
+                  </CC:Polygon>
+                </tt:ElementItem>
+                <tt:ElementItem Name="PresetToken">
+                  <CC:Token xmlns:CC="http://www.canon.com/ns/networkcamera/onvif/va/schema" xmlns:tt="http://www.onvif.org/ver10/schema"></CC:Token>
+                </tt:ElementItem>
+              </tt:Parameters>
+            </tt:Rule>
+            <tt:Rule Name="5" Type="CT:PassingDetector">
+              <tt:Parameters>
+                <tt:SimpleItem Value="Any" Name="Direction"></tt:SimpleItem>
+                <tt:ElementItem Name="Field">
+                  <CC:Polyline xmlns:CC="http://www.canon.com/ns/networkcamera/onvif/va/schema" xmlns:tt="http://www.onvif.org/ver10/schema">
+                    <tt:Point y="14.000000" x="1.000000"></tt:Point>
+                    <tt:Point y="13.000000" x="28.000000"></tt:Point>
+                    <tt:Point y="33.000000" x="36.000000"></tt:Point>
+                  </CC:Polyline>
+                </tt:ElementItem>
+                <tt:ElementItem Name="PresetToken">
+                  <CC:Token xmlns:CC="http://www.canon.com/ns/networkcamera/onvif/va/schema" xmlns:tt="http://www.onvif.org/ver10/schema"></CC:Token>
+                </tt:ElementItem>
+              </tt:Parameters>
+            </tt:Rule>
+            <tt:Rule Name="6" Type="CT:IntrusionDetector">
+              <tt:Parameters>
+                <tt:SimpleItem Value="PT5S" Name="TimeToJudgment"></tt:SimpleItem>
+                <tt:SimpleItem Value="0.70" Name="ObjectSize"></tt:SimpleItem>
+                <tt:ElementItem Name="Field">
+                  <CC:Polygon xmlns:CC="http://www.canon.com/ns/networkcamera/onvif/va/schema" xmlns:tt="http://www.onvif.org/ver10/schema">
+                    <tt:Point y="12.000000" x="44.000000"></tt:Point>
+                    <tt:Point y="27.000000" x="44.000000"></tt:Point>
+                    <tt:Point y="27.000000" x="54.000000"></tt:Point>
+                    <tt:Point y="12.000000" x="54.000000"></tt:Point>
+                  </CC:Polygon>
+                </tt:ElementItem>
+                <tt:ElementItem Name="PresetToken">
+                  <CC:Token xmlns:CC="http://www.canon.com/ns/networkcamera/onvif/va/schema" xmlns:tt="http://www.onvif.org/ver10/schema"></CC:Token>
+                </tt:ElementItem>
+              </tt:Parameters>
+            </tt:Rule>
+            <tt:Rule Name="7" Type="CT:RemovedObjectDetector">
+              <tt:Parameters>
+                <tt:SimpleItem Value="PT9S" Name="TimeToJudgment"></tt:SimpleItem>
+                <tt:ElementItem Name="Field">
+                  <CC:Polygon xmlns:CC="http://www.canon.com/ns/networkcamera/onvif/va/schema" xmlns:tt="http://www.onvif.org/ver10/schema">
+                    <tt:Point y="18.000000" x="32.000000"></tt:Point>
+                    <tt:Point y="18.000000" x="40.000000"></tt:Point>
+                    <tt:Point y="20.000000" x="50.000000"></tt:Point>
+                    <tt:Point y="20.000000" x="60.000000"></tt:Point>
+                    <tt:Point y="34.000000" x="60.000000"></tt:Point>
+                    <tt:Point y="34.000000" x="39.000000"></tt:Point>
+                  </CC:Polygon>
+                </tt:ElementItem>
+                <tt:ElementItem Name="PresetToken">
+                  <CC:Token xmlns:CC="http://www.canon.com/ns/networkcamera/onvif/va/schema" xmlns:tt="http://www.onvif.org/ver10/schema"></CC:Token>
+                </tt:ElementItem>
+              </tt:Parameters>
+            </tt:Rule>
+          </tt:RuleEngineConfiguration>
+        </tt:VideoAnalyticsConfiguration>
+        <tt:MetadataConfiguration token="1">
+          <tt:Name>metadata1</tt:Name>
+          <tt:UseCount>1</tt:UseCount>
+          <tt:Analytics>false</tt:Analytics>
+          <tt:Multicast>
+            <tt:Address>
+              <tt:Type>IPv4</tt:Type>
+              <tt:IPv4Address>0.0.0.0</tt:IPv4Address>
+            </tt:Address>
+            <tt:Port>0</tt:Port>
+            <tt:TTL>0</tt:TTL>
+            <tt:AutoStart>false</tt:AutoStart>
+          </tt:Multicast>
+          <tt:SessionTimeout>PT1M0S</tt:SessionTimeout>
+        </tt:MetadataConfiguration>
+        <tt:Extension>
+          <tt:AudioOutputConfiguration token="0">
+            <tt:Name>AudioOutput</tt:Name>
+            <tt:UseCount>1</tt:UseCount>
+            <tt:OutputToken>0</tt:OutputToken>
+            <tt:OutputLevel>50</tt:OutputLevel>
+          </tt:AudioOutputConfiguration>
+          <tt:AudioDecoderConfiguration token="0">
+            <tt:Name>g711decoder</tt:Name>
+            <tt:UseCount>1</tt:UseCount>
+          </tt:AudioDecoderConfiguration>
+        </tt:Extension>
+      </trt:Profiles>
+      <trt:Profiles fixed="false" token="ai1487833283">
+        <tt:Name>ai1487833283</tt:Name>
+        <tt:VideoSourceConfiguration token="0">
+          <tt:Name>video</tt:Name>
+          <tt:UseCount>5</tt:UseCount>
+          <tt:SourceToken>0</tt:SourceToken>
+          <tt:Bounds height="1080" width="1920" y="0" x="0"></tt:Bounds>
+          <tt:Extension>
+            <tt:Rotate>
+              <tt:Mode>AUTO</tt:Mode>
+            </tt:Rotate>
+          </tt:Extension>
+        </tt:VideoSourceConfiguration>
+        <tt:VideoEncoderConfiguration token="5">
+          <tt:Name>jpeg5</tt:Name>
+          <tt:UseCount>1</tt:UseCount>
+          <tt:Encoding>H264</tt:Encoding>
+          <tt:Resolution>
+            <tt:Width>1920</tt:Width>
+            <tt:Height>1080</tt:Height>
+          </tt:Resolution>
+          <tt:Quality>10.000000</tt:Quality>
+          <tt:RateControl>
+            <tt:FrameRateLimit>15</tt:FrameRateLimit>
+            <tt:EncodingInterval>1</tt:EncodingInterval>
+            <tt:BitrateLimit>3072</tt:BitrateLimit>
+          </tt:RateControl>
+          <tt:H264>
+            <tt:GovLength>15</tt:GovLength>
+            <tt:H264Profile>Baseline</tt:H264Profile>
+          </tt:H264>
+          <tt:Multicast>
+            <tt:Address>
+              <tt:Type>IPv4</tt:Type>
+              <tt:IPv4Address>0.0.0.0</tt:IPv4Address>
+            </tt:Address>
+            <tt:Port>0</tt:Port>
+            <tt:TTL>0</tt:TTL>
+            <tt:AutoStart>false</tt:AutoStart>
+          </tt:Multicast>
+          <tt:SessionTimeout>PT1M0S</tt:SessionTimeout>
+        </tt:VideoEncoderConfiguration>
+      </trt:Profiles>
+      <trt:Profiles fixed="true" token="profile2">
+        <tt:Name>profile2</tt:Name>
+        <tt:VideoSourceConfiguration token="0">
+          <tt:Name>video</tt:Name>
+          <tt:UseCount>5</tt:UseCount>
+          <tt:SourceToken>0</tt:SourceToken>
+          <tt:Bounds height="1080" width="1920" y="0" x="0"></tt:Bounds>
+          <tt:Extension>
+            <tt:Rotate>
+              <tt:Mode>AUTO</tt:Mode>
+            </tt:Rotate>
+          </tt:Extension>
+        </tt:VideoSourceConfiguration>
+        <tt:VideoEncoderConfiguration token="264-1">
+          <tt:Name>h264-1</tt:Name>
+          <tt:UseCount>1</tt:UseCount>
+          <tt:Encoding>H264</tt:Encoding>
+          <tt:Resolution>
+            <tt:Width>1920</tt:Width>
+            <tt:Height>1080</tt:Height>
+          </tt:Resolution>
+          <tt:Quality>10.000000</tt:Quality>
+          <tt:RateControl>
+            <tt:FrameRateLimit>15</tt:FrameRateLimit>
+            <tt:EncodingInterval>1</tt:EncodingInterval>
+            <tt:BitrateLimit>3072</tt:BitrateLimit>
+          </tt:RateControl>
+          <tt:H264>
+            <tt:GovLength>15</tt:GovLength>
+            <tt:H264Profile>Baseline</tt:H264Profile>
+          </tt:H264>
+          <tt:Multicast>
+            <tt:Address>
+              <tt:Type>IPv4</tt:Type>
+              <tt:IPv4Address>0.0.0.0</tt:IPv4Address>
+            </tt:Address>
+            <tt:Port>0</tt:Port>
+            <tt:TTL>0</tt:TTL>
+            <tt:AutoStart>false</tt:AutoStart>
+          </tt:Multicast>
+          <tt:SessionTimeout>PT1M0S</tt:SessionTimeout>
+        </tt:VideoEncoderConfiguration>
+      </trt:Profiles>
+      <trt:Profiles fixed="true" token="profile3">
+        <tt:Name>profile3</tt:Name>
+        <tt:VideoSourceConfiguration token="0">
+          <tt:Name>video</tt:Name>
+          <tt:UseCount>5</tt:UseCount>
+          <tt:SourceToken>0</tt:SourceToken>
+          <tt:Bounds height="1080" width="1920" y="0" x="0"></tt:Bounds>
+          <tt:Extension>
+            <tt:Rotate>
+              <tt:Mode>AUTO</tt:Mode>
+            </tt:Rotate>
+          </tt:Extension>
+        </tt:VideoSourceConfiguration>
+        <tt:VideoEncoderConfiguration token="101">
+          <tt:Name>jpeg-rec1</tt:Name>
+          <tt:UseCount>1</tt:UseCount>
+          <tt:Encoding>JPEG</tt:Encoding>
+          <tt:Resolution>
+            <tt:Width>1920</tt:Width>
+            <tt:Height>1080</tt:Height>
+          </tt:Resolution>
+          <tt:Quality>6.000000</tt:Quality>
+          <tt:RateControl>
+            <tt:FrameRateLimit>1</tt:FrameRateLimit>
+            <tt:EncodingInterval>1</tt:EncodingInterval>
+            <tt:BitrateLimit>384</tt:BitrateLimit>
+          </tt:RateControl>
+          <tt:Multicast>
+            <tt:Address>
+              <tt:Type>IPv4</tt:Type>
+              <tt:IPv4Address>0.0.0.0</tt:IPv4Address>
+            </tt:Address>
+            <tt:Port>0</tt:Port>
+            <tt:TTL>0</tt:TTL>
+            <tt:AutoStart>false</tt:AutoStart>
+          </tt:Multicast>
+          <tt:SessionTimeout>PT1M0S</tt:SessionTimeout>
+        </tt:VideoEncoderConfiguration>
+      </trt:Profiles>
+      <trt:Profiles fixed="false" token="ai1487833248">
+        <tt:Name>ai1487833248</tt:Name>
+        <tt:VideoSourceConfiguration token="0">
+          <tt:Name>video</tt:Name>
+          <tt:UseCount>5</tt:UseCount>
+          <tt:SourceToken>0</tt:SourceToken>
+          <tt:Bounds height="1080" width="1920" y="0" x="0"></tt:Bounds>
+          <tt:Extension>
+            <tt:Rotate>
+              <tt:Mode>AUTO</tt:Mode>
+            </tt:Rotate>
+          </tt:Extension>
+        </tt:VideoSourceConfiguration>
+      </trt:Profiles>
+    </trt:GetProfilesResponse>
+  </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>

@@ -41,9 +41,10 @@ namespace ONVIFTester
             ONVIFDevice onvifdev = _onvifdev;
             XmlNodeList xnode_list = doc.GetElementsByTagName(onvifdev.devicePrefix + ":Capabilities");
 
-            XmlNode xnode = xnode_list[0]; /* capabilities elements */           
+            _onvifdev.capabilitiesNode = xnode_list[0]; /* capabilities elements */           
 
-            foreach(XmlElement xelement in xnode)
+
+            foreach(XmlElement xelement in _onvifdev.capabilitiesNode)
             {
                 String[] attribute = xelement.Name.Split(':');
                 String tag = attribute[attribute.Length - 1];
@@ -64,7 +65,35 @@ namespace ONVIFTester
                         break;
                     case "Media":
                         onvifdev.mediaxaddr = xelement.FirstChild.FirstChild.Value;
-                        break;                    
+                        break;
+                    case "Extension":
+                        {
+                            XmlNodeList xnode_extension = xelement.ChildNodes;
+                            foreach(XmlNode xnode in xnode_extension)
+                            {
+                                String[] _attr = xnode.Name.Split(':');
+                                    String _tag = _attr[_attr.Length - 1];
+                                    switch(_tag)
+                                    {
+                                        case "DeviceIO":
+                                            onvifdev.devioxaddr = xnode.FirstChild.FirstChild.Value;
+                                            break;
+                                        case "Recording":
+                                            onvifdev.recordxaddr = xnode.FirstChild.FirstChild.Value;
+                                        break;
+                                        case "Search":
+                                            onvifdev.searchxaddr = xnode.FirstChild.FirstChild.Value;
+                                        break;
+                                        case "Replay":
+                                            onvifdev.replayxaddr = xnode.FirstChild.FirstChild.Value;
+                                        break;
+                                        default:
+                                            break;
+
+                                    }
+                           }
+                        }                        
+                        break;
                     case "DeviceIO":
                         onvifdev.devioxaddr = xelement.FirstChild.FirstChild.Value;
                         break;

@@ -87,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="GetCapaReply.xml" />
+    <Content Include="GetProfilesReply.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

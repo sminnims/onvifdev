@@ -19,19 +19,23 @@ namespace ONVIFTester
         public Form1()
         {
             InitializeComponent();
-            _onvif = new ONVIFControl(this);  
         }
 
         private void btnConnect_Click(object sender, EventArgs e)
         {
             tbLog.Clear();
+            if(_onvif != null)
+            {
+                _onvif.Dispose();
+                GC.SuppressFinalize(_onvif);
+            }
             try
             {
                 String deviceUrl;
                 String addr = tbAddr.Text;
                 /* check ip address */
                 IPAddress ip = IPAddress.Parse(addr);
-                
+                _onvif = new ONVIFControl(this);
                 deviceUrl = "http://" + tbAddr.Text;
                 _onvif.setDeviceUrl(deviceUrl);
                 _onvif.setUsername(tbID.Text);
@@ -39,6 +43,7 @@ namespace ONVIFTester
                 _onvif.setNonce();
                 _onvif.ONVIF_GetSystemDateAndTime();
                 _onvif.ONVIF_GetCapabilities();
+                _onvif.ONVIF_GetProfiles();
             }
             catch(ArgumentNullException ane)
             {
