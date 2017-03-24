@@ -33,9 +33,10 @@ namespace ONVIFTester
 
         /* element */
         public XmlNode capabilitiesNode { get; set; }
-
+        public XmlNode profilesNode { get; set; }
+        public XmlNode systemlogNode { get; set; }
         /* node struct */
-        public ONVIFCapabilities capabilities { get; set; }
+        //public ONVIFCapabilities capabilities { get; set; }
 
         /* command xaddr */
         public String analysticxaddr { get; set; }
@@ -48,6 +49,8 @@ namespace ONVIFTester
         public String searchxaddr { get; set; }
         public String replayxaddr { get; set; }
     }
+
+#if false // test 
     class ONVIFCapabilities
     {
         ONVIFCapaAnalystics Analytics;
@@ -176,7 +179,7 @@ namespace ONVIFTester
         bool MetadataSearch { get; set; }        
     }
     class ONVIFCapaReplay : ONVIFCapaSubElement { }
-    
+#endif
     class ONVIFNamespace
     {
         public static String schema = "http://www.onvif.org/ver10/schema";
@@ -188,7 +191,7 @@ namespace ONVIFTester
         private wsdUsernameToken _wsdUsernameToken;
         private String deviceURL;
         private String schemaPrefix;
-        private Form1 parentForm;
+        private Connection parentForm;
 
         private HttpControl _http;
 
@@ -197,7 +200,7 @@ namespace ONVIFTester
 
         private bool isDispose = false;
 
-        public ONVIFControl(Form1 _form)
+        public ONVIFControl(Connection _form)
         {
             onvifdev = new ONVIFDevice();
             _wsdUsernameToken = new wsdUsernameToken();
@@ -219,7 +222,7 @@ namespace ONVIFTester
             GC.SuppressFinalize(this);
         }
         /* wsdUsernameToken I/F */
-        #region wsdUsernameToken
+#region wsdUsernameToken
         public void setUsername(String str)
         {
             if (str == null)
@@ -236,11 +239,11 @@ namespace ONVIFTester
         {
             _wsdUsernameToken.Nonce = EncodingHelper.Base64Encode(DigestPassword.getNonce(32));
         }
-        #endregion
+#endregion
         /* wsdUsernameToken I/F */
 
         /* global value get/set I/F */
-        #region valueSettingI/F
+#region valueSettingI/F
         public void setDeviceUrl(String str)
         {
             if (str == null)
@@ -248,11 +251,11 @@ namespace ONVIFTester
             deviceURL = str;
         }
 
-        #endregion
+#endregion
         /* global value get/set I/F */
 
         /* ONVIF Control API */
-        #region ONVIFControlAPI
+#region ONVIFControlAPI
         public void ONVIF_GetSystemDateAndTime()
         {
             XmlDocument soapEnvXml = new XmlDocument();
@@ -334,6 +337,7 @@ namespace ONVIFTester
 
         public void ONVIF_GetCapabilities()
         {
+            setNonce();
             /* get synced-time using base time */
             baseDateTime = DigestPassword.getCurrentTime(startDate, baseDateTime);
             /* make createTime string */
@@ -396,6 +400,7 @@ namespace ONVIFTester
 
         public void ONVIF_GetProfiles()
         {
+            setNonce();
             /* get synced-time using base time */
             baseDateTime = DigestPassword.getCurrentTime(startDate, baseDateTime);
             /* make createTime string */
@@ -440,6 +445,8 @@ namespace ONVIFTester
                 xdoc.LoadXml(paramStr.ToString());
 
                 XmlNamespaceManager xnamespace = XMLControl.getAllNamespaces(xdoc);
+                onvifdev.schemaPrefix = xnamespace.LookupPrefix(ONVIFNamespace.schema);
+                onvifdev.devicePrefix = xnamespace.LookupPrefix(ONVIFNamespace.device);
                 /* get function xaddr in document */
             }
             catch (XmlException xe)
@@ -451,7 +458,77 @@ namespace ONVIFTester
                 parentForm.settbLogBox("\r\nWeb Exception : " + we.Message + System.Reflection.MethodBase.GetCurrentMethod().Name);
             }
         }
-        #endregion
+        public String ONVIF_GetSystemLog()
+        {
+            setNonce();
+            /* get synced-time using base time */
+            baseDateTime = DigestPassword.getCurrentTime(startDate, baseDateTime);
+            /* make createTime string */
+            _wsdUsernameToken.Create = DigestPassword.getCreatedTimeString(baseDateTime);
+            /* make digest password */
+            //_wsdUsernameToken.Password = DigestPassword.getPasswordDigest("LKqI6G/AikKCQrN0zqZFlg==", "2010-09-16T07:50:45Z", "userpassword");            
+            _wsdUsernameToken.Password = DigestPassword.getPasswordDigest(_wsdUsernameToken.Nonce,
+                                                                          _wsdUsernameToken.Create,
+                                                                          _wsdUsernameToken.plainPassword);
+            /* set packet */
+            StringBuilder reqMessage = new StringBuilder();
+            reqMessage.Append("<s:Envelope xmlns:s=\"http://www.w3.org/2003/05/soap-envelope\">");
+            reqMessage.Append("<s:Header>");
+            reqMessage.Append("<Security ");
+            reqMessage.Append("s:mustUnderstand=\"1\" ");
+            reqMessage.Append("xmlns=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\">");
+            reqMessage.Append("<UsernameToken><Username>" + _wsdUsernameToken.Username + "</Username>");
+            reqMessage.Append("<Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordDigest\">" + _wsdUsernameToken.Password + "</Password>");
+            reqMessage.Append("<Nonce EncodingType=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary\">" + _wsdUsernameToken.Nonce + "</Nonce>");
+            reqMessage.Append("<Created xmlns=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd\">" + _wsdUsernameToken.Create + "</Created>");
+            reqMessage.Append("</UsernameToken></Security></s:Header>");
+            reqMessage.Append("<s:Body xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">");
+            reqMessage.Append("<GetSystemLog xmlns=\"http://www.onvif.org/ver10/device/wsdl\"><LogType>System</LogType></GetSystemLog></s:Body></s:Envelope>");
+
+            /* encoding */
+            byte[] reqMessageBinary = EncodingHelper.String2Byte(reqMessage.ToString());
+
+            /* Get Url */
+            String Url = onvifdev.devicexaddr;
+            try
+            {
+                _http.Connect(Url);
+                _http.setONVIFHeader("\"http://www.onvif.org/ver10/device/wsdl/GetSystemLog\"");
+                _http.Write(reqMessageBinary);
+
+                String paramStr = _http.Read();
+                parentForm.settbLogBox("\r\nFunction OK : " + System.Reflection.MethodBase.GetCurrentMethod().Name + "\n");
+
+                /* parser soap response */
+                XmlDocument xdoc = new XmlDocument();
+                xdoc.LoadXml(paramStr.ToString());
+
+                XmlNamespaceManager xnamespace = XMLControl.getAllNamespaces(xdoc);
+                onvifdev.schemaPrefix = xnamespace.LookupPrefix(ONVIFNamespace.schema);
+                onvifdev.devicePrefix = xnamespace.LookupPrefix(ONVIFNamespace.device);
+                /* get function xaddr in document */
+                /*
+                 *   <SOAP-ENV:Header></SOAP-ENV:Header>
+                      <SOAP-ENV:Body>
+                        <tds:GetSystemLogResponse>
+                          <tds:SystemLog>
+                            <tds2:String>Mar 13 08:08:27 VB-
+                */
+                String logStr = XMLControl.getLogStr(xdoc, onvifdev);
+                return logStr;
+
+            }
+            catch (XmlException xe)
+            {
+                parentForm.settbLogBox("\r\nXml Exception : " + xe.Message + System.Reflection.MethodBase.GetCurrentMethod().Name);
+            }
+            catch (WebException we)
+            {
+                parentForm.settbLogBox("\r\nWeb Exception : " + we.Message + System.Reflection.MethodBase.GetCurrentMethod().Name);
+            }
+            return "test";
+        }
+#endregion
         /* ONVIF Control API */
-    }
+            }
 }

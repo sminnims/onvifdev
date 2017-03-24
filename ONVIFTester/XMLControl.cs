@@ -41,10 +41,9 @@ namespace ONVIFTester
             ONVIFDevice onvifdev = _onvifdev;
             XmlNodeList xnode_list = doc.GetElementsByTagName(onvifdev.devicePrefix + ":Capabilities");
 
-            _onvifdev.capabilitiesNode = xnode_list[0]; /* capabilities elements */           
+            _onvifdev.profilesNode = xnode_list[0]; /* capabilities elements */           
 
-
-            foreach(XmlElement xelement in _onvifdev.capabilitiesNode)
+            foreach(XmlElement xelement in _onvifdev.profilesNode)
             {
                 String[] attribute = xelement.Name.Split(':');
                 String tag = attribute[attribute.Length - 1];
@@ -112,6 +111,23 @@ namespace ONVIFTester
                 
             }
             return onvifdev;
+        }
+
+        public static String getLogStr(XmlDocument doc, ONVIFDevice _onvifdev)
+        {
+            String log;
+            ONVIFDevice onvifdev = _onvifdev;
+            XmlNodeList xnode_list = doc.GetElementsByTagName(onvifdev.devicePrefix + ":SystemLog");
+
+            _onvifdev.systemlogNode = xnode_list[0]; /* get elements */
+
+            foreach (XmlElement xelement in _onvifdev.systemlogNode)
+            {
+                log = xelement.FirstChild.Value;
+                return log;
+            }
+
+            return "error";
         }
         #endregion
     }

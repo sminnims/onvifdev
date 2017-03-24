@@ -13,6 +13,7 @@ E:\Work\000--장기프로젝트\2017-NVS\03.검토\05.Project\01.OnvifTest\ONVIF
 E:\Work\000--장기프로젝트\2017-NVS\03.검토\05.Project\01.OnvifTest\ONVIFTester\bin\Debug\ONVIFTester.exe
 E:\Work\000--장기프로젝트\2017-NVS\03.검토\05.Project\01.OnvifTest\ONVIFTester\bin\Debug\ONVIFTester.pdb
 E:\Work\000--장기프로젝트\2017-NVS\03.검토\05.Project\01.OnvifTest\ONVIFTester\obj\Debug\ONVIFTester.csprojResolveAssemblyReference.cache
-E:\Work\000--장기프로젝트\2017-NVS\03.검토\05.Project\01.OnvifTest\ONVIFTester\obj\Debug\ONVIFTester.Form1.resources
 E:\Work\000--장기프로젝트\2017-NVS\03.검토\05.Project\01.OnvifTest\ONVIFTester\obj\Debug\ONVIFTester.Properties.Resources.resources
 E:\Work\000--장기프로젝트\2017-NVS\03.검토\05.Project\01.OnvifTest\ONVIFTester\obj\Debug\ONVIFTester.csproj.GenerateResource.Cache
+E:\Work\000--장기프로젝트\2017-NVS\03.검토\05.Project\01.OnvifTest\ONVIFTester\obj\Debug\ONVIFTester.SystemLog.resources
+E:\Work\000--장기프로젝트\2017-NVS\03.검토\05.Project\01.OnvifTest\ONVIFTester\obj\Debug\ONVIFTester.Connection.resources
